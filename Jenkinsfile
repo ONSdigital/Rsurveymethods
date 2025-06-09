@@ -2,7 +2,7 @@
 
 def artServer = Artifactory.server "onsart-01"
 def buildInfo = Artifactory.newBuildInfo()
-def agentRVersion = 'r_4.2'
+def agentRVersion = 'r'
 
 def pushToArtifactoryRepo(String packagePath = 'dist/*.tar.gz', String artifactoryHost = 'onsart-01.ons.statistics.gov.uk') {
   withCredentials([usernamePassword(credentialsId: env.ARTIFACTORY_CREDS, usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_PASSWORD')]) {
