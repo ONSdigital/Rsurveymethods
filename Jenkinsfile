@@ -49,10 +49,10 @@ pipeline {
         unstash name: 'Checkout'
         colourText('info', "Building R package")
         sh '''
-          Rscript -e "install.packages(c('devtools', 'roxygen2'))"
-          Rscript -e "devtools::document()"
-          Rscript -e "devtools::build(path = 'dist')"
+          mkdir -p dist
+          R CMD build . --no-build-vignettes --no-manual --output=dist
         '''
+
         stash name: "Build", useDefaultExcludes: false
       }
     }
