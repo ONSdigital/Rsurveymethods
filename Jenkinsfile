@@ -20,7 +20,7 @@ pipeline {
     PROXY = credentials("PROXY")
     ARTIFACTORY_CREDS = "ARTIFACTORY_CREDENTIALS"
     ARTIFACTORY_R_REPO = "LR_rsurveymethods"
-    BUILD_BRANCH = "main"
+    BUILD_BRANCH = "jenkins"
     BUILD_TAG = "v*.*.*"
   }
   options {
@@ -49,7 +49,7 @@ pipeline {
         unstash name: 'Checkout'
         colourText('info', "Building R package")
         sh '''
-          Rscript -e "install.packages(c('devtools', 'roxygen2'), repos='https://cloud.r-project.org')"
+          Rscript -e "install.packages(c('devtools', 'roxygen2'))"
           Rscript -e "devtools::document()"
           Rscript -e "devtools::build(path = 'dist')"
         '''
