@@ -31,17 +31,17 @@ pipeline {
 
   stages {
 
-    stage('List Agent Labels') {
-      steps {
-        script {
-          def labels = Jenkins.instance.getLabelAtoms()*.name
-          println "Available agent labels:"
-          labels.each { label ->
-            println " - ${label}"
-          }
-        }
-      }
-    }
+    stage('List Agent Labels') {
+      steps {
+        script {
+          def labels = Jenkins.instance.getLabelAtoms()*.name
+            println "Available agent labels:"
+            labels.each { label ->
+            println " - ${label}"
+          }
+        }
+      }
+    }
 
     stage("Checkout") {
       agent { label "download.jenkins.slave" }
