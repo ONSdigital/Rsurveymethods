@@ -16,11 +16,11 @@
 library(ReGenesees)
 
 #Define data locations
-dataloc<-"C:\\Users\\digbyj2\\Office for National Statistics\\Economic Statistics Hub - Projects\\Economic Statistics Hub\\Short_term_business_statistics\\ReGenesees\\"
+dataloc<-"Rsurveymethod/tests/"
 datafile<-"minitest_cons.csv"
 infile <- paste(dataloc,datafile,sep='')
 
-outdir<- "D:\\"
+outdir<- ""
 
 
 #Read data
