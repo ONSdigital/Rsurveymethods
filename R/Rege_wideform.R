@@ -15,23 +15,35 @@
 #Load package
 library(ReGenesees)
 
+
+###################input
+
 #Define data locations
 dataloc<-""
-datafile<-"longform.csv"
+datafile<-"input_regen_test_data.csv"
+population_counts_file<-"regen_population_counts_test.csv"
+
 infile <- paste(dataloc,datafile,sep='')
 
-outdir<- ""
+population_counts_file <- paste(dataloc,population_counts_file,sep='')
+
+input_data <-read.csv(infile)
+
+population_counts <-read.csv(population_counts_file)
+
+################### pre-processing
 
 
-#Read data
-#Ensure strata (cell) and calibration groups/estimation domains are factors. FileEncoding will depend on file being imported
-data1<-read.csv(infile, 
-                colClasses=c(rep('numeric',3),
-                           'factor',
-                           rep('numeric',2),
-                           rep('factor',3),
-                           rep('numeric',1)), 
-                fileEncoding="UTF-8-BOM")
+#enforce dtypes, ensure strata (cell) and calibration groups/estimation domains are factors.
+
+input_data_with_counts <- merge(input_data, population_counts, by = c("period","cell"))
+
+input_data_with_counts$extcalweights <- input_data_with_counts$aweight * input_data_with_counts$gweight
+
+input_data_with_counts$winsorised_value <- input_data_with_counts$value * input_data_with_counts$outlier_weight
+
+
+##### Regenesses stuf
 
 #Switch off so get dummy encoding of matrix
 contrasts.off()
@@ -41,11 +53,15 @@ contrasts.off()
 #Set up the calibration object by giving ReGenesees the survey design, weights and external calibration model used.
 #--> must have var proportional to auxiliary otherwise estimates will be off (heteroskedasticity)
 
+input_data_with_counts$cell <- as.factor(input_data_with_counts$cell)
+
+input_data_with_counts$calibration_group <- input_data_with_counts$cell
+
 caldesign <-ext.calibrated(ids=~ruref,
                            weights=~aweight,
                            strata=~cell,
                            fpc=~univcts,
-                           data=data1,
+                           data=input_data_with_counts,
                            weights.cal=~extcalweights,
                            calmodel=~(turnover:calibration_group) -1,
                            sigma2=~turnover)
@@ -53,17 +69,34 @@ caldesign <-ext.calibrated(ids=~ruref,
 
 #Calculate estimates, SEs and CVs of Totals at overall and size-band level
 New_Total_estimates <- svystatTM(caldesign,
-                             ~value,
+                             ~winsorised_value,
                              estimator='Total',
-                             vartype=c('se','cv'),by=~question_no)  #all added so format of results is same
+                             vartype=c('se','cv'),by=~question_no)  
 
 
 New_Sizeb_estimates <- svystatTM(caldesign,
-                             ~value,
+                             ~winsorised_value,
                              estimator='Total',
                              vartype=c('se','cv'),
                              by=~size_band+question_no)
 
-#Output the data so can be accessed by rest of pipeline
-write.csv(Total_estimates, paste(outdir,"total_estimates.csv"), row.names = FALSE)
-write.csv(Sizeb_estimates, paste(outdir,"Sizeb_estimates.csv"), row.names = FALSE)
+
+
+########################## Exporting
+
+output_df <- merge(input_data_with_counts, New_Sizeb_estimates, by = c("size_band","question_no"))
+
+write.csv(output_df, paste("","post_regenesses.csv"), row.names = FALSE)
+
+
+
+
+### Notes to ask methodology:
+# 1: what to do with period var
+# 2: Check details of winsorised value how it should be calculated
+# 3: estimates by size band or total or both? Should it be configured
+# 4: Check details input_data_with_counts$extcalweights <- input_data_with_counts$aweight * input_data_with_counts$gweight
+# 5: should counts and extcalweights and winsorised value be calculated in estimation python
+# 
+
+
