@@ -71,14 +71,14 @@ caldesign <-ext.calibrated(ids=~ruref,
 New_Total_estimates <- svystatTM(caldesign,
                              ~winsorised_value,
                              estimator='Total',
-                             vartype=c('se','cv'),by=~question_no)  
+                             vartype=c('se','cv'),by=~question_no+period)  
 
 
 New_Sizeb_estimates <- svystatTM(caldesign,
                              ~winsorised_value,
                              estimator='Total',
                              vartype=c('se','cv'),
-                             by=~size_band+question_no)
+                             by=~size_band+question_no+period)
 
 
 
@@ -98,5 +98,8 @@ write.csv(output_df, paste("","post_regenesses.csv"), row.names = FALSE)
 # 4: Check details input_data_with_counts$extcalweights <- input_data_with_counts$aweight * input_data_with_counts$gweight
 # 5: should counts and extcalweights and winsorised value be calculated in estimation python
 # 
+
+
+
 
 
