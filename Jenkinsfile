@@ -2,7 +2,7 @@
 
 def artServer = Artifactory.server "onsart-01"
 def buildInfo = Artifactory.newBuildInfo()
-def agentRVersion = "build.r_4.4.1"
+def agentRVersion = "r_4.4.1"
 
 
 def pushToArtifactoryRepo(String packagePath = 'dist/*.tar.gz', String artifactoryHost = 'onsart-01.ons.statistics.gov.uk') {
