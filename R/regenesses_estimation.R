@@ -7,17 +7,15 @@
 #'
 # Load package
 
-library(ReGenesees)
+# library(ReGenesees)
 
 regenesses_estimation <- function(input_data_with_counts) {
   # Ensure factors
   input_data_with_counts$cell <- as.factor(input_data_with_counts$cell)
   input_data_with_counts$calibration_group <- input_data_with_counts$cell
 
-  print(input_data_with_counts)
-
   # Switch off contrasts for dummy encoding
-  contrasts.off()
+  # contrasts.off()
 
   # Set up the calibration object
   caldesign <- ext.calibrated(
