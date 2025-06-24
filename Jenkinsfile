@@ -51,8 +51,7 @@ pipeline {
         unstash name: 'Checkout'
         colourText('info', "Building R package")
         sh '''
-          mkdir -p dist
-          R CMD build . --no-build-vignettes --no-manual --output=dist
+          R CMD build . --no-build-vignettes --no-manual
         '''
 
         stash name: "Build", useDefaultExcludes: false
