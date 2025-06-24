@@ -51,7 +51,9 @@ pipeline {
         unstash name: 'Checkout'
         colourText('info', "Building R package")
         sh '''
-          R CMD build . --no-build-vignettes --no-manual
+          mkdir -p dist
+          PKG_TAR=$(R CMD build . --no-build-vignettes --no-manual | grep -oE '[^ ]+\\.tar\\.gz')
+          mv "$PKG_TAR" dist/
         '''
 
         stash name: "Build", useDefaultExcludes: false
