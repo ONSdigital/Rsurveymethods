@@ -21,7 +21,7 @@ pipeline {
     PROXY = credentials("PROXY")
     ARTIFACTORY_CREDS = "ARTIFACTORY_CREDENTIALS"
     ARTIFACTORY_R_REPO = "LR_rsurveymethods"
-    BUILD_BRANCH = "jenkins"
+    BUILD_BRANCH = "main"
     BUILD_TAG = "v*.*.*"
   }
   options {
@@ -62,7 +62,7 @@ pipeline {
 
     stage("Deploy") {
       when {
-        anyOf {
+        allOf {
           branch BUILD_BRANCH
           tag BUILD_TAG
         }
