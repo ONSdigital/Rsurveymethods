@@ -1,7 +1,7 @@
 # Project directories
-ARTIFACT_DIR <- "D:/consultancy/construction/Rsurveymethods/tests/"
-INPUT_DIR <- paste(ARTIFACT_DIR, "input", sep="")
-OUTPUT_DIR <- paste(ARTIFACT_DIR, "output", sep="")
+ARTIFACT_DIR <- getwd()
+INPUT_DIR <- paste(ARTIFACT_DIR, "/tests/input", sep="")
+OUTPUT_DIR <- paste(ARTIFACT_DIR, "/tests/output", sep="")
 
 # Input files
 DATA_FILENAME <- "input_regen_test_data.csv"
