@@ -20,7 +20,7 @@ pipeline {
     MAIN_BRANCH = "main"
     PROXY = credentials("PROXY")
     ARTIFACTORY_CREDS = "ARTIFACTORY_CREDENTIALS"
-    ARTIFACTORY_R_REPO = "LR_rsurveymethods"
+    ARTIFACTORY_R_REPO = "LR_rsurverymethods"
     BUILD_BRANCH = "main"
     BUILD_TAG = "v*.*.*"
   }
