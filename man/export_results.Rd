@@ -3,9 +3,6 @@
 \name{export_results}
 \alias{export_results}
 \title{Export merged survey results to CSV}
-\usage{
-export_results(input_data_with_counts, size_band_estimates, output_file)
-}
 \arguments{
 \item{input_data_with_counts}{Data frame with pre-processed survey data}
 
