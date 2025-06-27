@@ -1,13 +1,10 @@
+library(ReGenesees)
+
 #' Perform domain estimation using calibrated survey design
 #'
 #' @param input_data_with_counts Data frame with pre-processed survey data
 #' @return A list with total and size-band estimates
 #' @import ReGenesees
-#' @export
-#'
-# Load package
-
-library(ReGenesees)
 
 regenesses_estimation <- function(input_data_with_counts) {
   # Ensure factors
