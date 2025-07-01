@@ -17,6 +17,22 @@ test_that("regenesses_estimation correct output" , {
     stringsAsFactors = FALSE
   )
 
-  print(regenesses_estimation(input_data))
+  output <- regenesses_estimation(input_data)
+
+  # Check the output is a list
+  expect_type(output, "list")
+
+  # Test output items has expected columns:
+  expected_cols_total_estimates <- c("period", "question_no", "Total.winsorised_value", "SE.Total.winsorised_value", "CV.Total.winsorised_value") # example
+  expect_true(all(expected_cols_total_estimates %in% colnames(output$total_estimates)))
+
+  expected_cols_total_size_band <- c("size_band", "question_no", "Total.winsorised_value", "SE.Total.winsorised_value", "CV.Total.winsorised_value") # example
+  expect_true(all(expected_cols_total_size_band %in% colnames(output$size_band_estimates)))
+
+  # Test output data frames  the correct number of rows
+  expect_true(nrow(output$total_estimates) == nrow(input_data))
+
+  expect_true(nrow(output$size_band_estimates) == nrow(input_data))
+
 
 })
