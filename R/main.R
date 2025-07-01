@@ -34,9 +34,7 @@ main <- function(input_data_path, population_counts_path){
   
   print("Combining estimates")
   estimates <- dplyr::bind_rows(list_of_dfs,.id = "period")
- 
-  write.csv(estimates, "D:/estimates_row", row.names = FALSE)
-  
+   
   print("Merging estimates to source dataframe")
   
   export_results(
