@@ -48,5 +48,3 @@ main <- function(input_data_path, population_counts_path){
   print("Process was succesful")
 }
 
-# call the main function
-main(INPUT_DATA_FILE, POPULATION_COUNTS_FILE)
