@@ -13,7 +13,7 @@ test_that("regenesses_estimation correct output" , {
     winsorised_value = c(100, 100, 300, 200),
     univcts = c(1, 1, 1, 1),
     turnover = c(100, 200, 300, 400),
-    size_band = c(1-5, 6-10, 6-10, 1-5),
+    size_band = c("1-5", "6-10", "6-10", "1-5"),
     stringsAsFactors = FALSE
   )
 
