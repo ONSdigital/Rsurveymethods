@@ -3,7 +3,7 @@ test_that("regenesses_estimation correct output" , {
     period = c("202201", "202201", "202201", "202201"),
     cell = c("100", "100", "200", "300"),
     ruref = c(101, 102, 103, 104),
-    question_no = c(10, 11, 12, 13),
+    question_no = c(10, 10, 11, 12),
     aweight = c(1.1, 1.0 , 0.8, 0.9),
     gweight = c(1, 1, 1, 1),
     value = c(100, 200, 300, 400),
@@ -13,7 +13,7 @@ test_that("regenesses_estimation correct output" , {
     winsorised_value = c(100, 100, 300, 200),
     univcts = c(1, 1, 1, 1),
     turnover = c(100, 200, 300, 400),
-    size_band = c("1-5", "6-10", "6-10", "1-5"),
+    size_band = c("1-5", "1-5", "6-10", "1-5"),
     stringsAsFactors = FALSE
   )
 
@@ -30,9 +30,11 @@ test_that("regenesses_estimation correct output" , {
   expect_true(all(expected_cols_total_size_band %in% colnames(output$size_band_estimates)))
 
   # Test output data frames  the correct number of rows
-  expect_true(nrow(output$total_estimates) == nrow(input_data))
+  # Should equal number of unique question numbers
+  expect_true(nrow(output$total_estimates) == 3)
 
-  expect_true(nrow(output$size_band_estimates) == nrow(input_data))
+  # Should equal number of unique question numbers and size bands
+  expect_true(nrow(output$size_band_estimates) == 3)
 
 
 })
