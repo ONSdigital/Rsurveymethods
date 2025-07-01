@@ -6,9 +6,9 @@
 \arguments{
 \item{input_data_with_counts}{Data frame with pre-processed survey data}
 
-\item{output_file}{Path to output CSV file}
+\item{estimates}{Data frame with size-band level estimates}
 
-\item{size_band_estimates}{Data frame with size-band level estimates}
+\item{output_file}{Path to output CSV file}
 }
 \value{
 None. Writes merged data to CSV.
