@@ -7,7 +7,7 @@
 #' @return None. Writes merged data to CSV.
 #'
 
-export_results <- function(input_data_with_counts, size_band_estimates, output_file) {
+export_results <- function(input_data_with_counts, estimates, output_file) {
 
   # Extract directory from the output file path
   outdir <- dirname(output_file)
@@ -19,9 +19,10 @@ export_results <- function(input_data_with_counts, size_band_estimates, output_f
 
   output_df <- merge(
     input_data_with_counts,
-    size_band_estimates$total_estimates,
-    by = c("size_band", "question_no")
+    estimates,
+    by = c("period", "questioncode")
   )
 
   write.csv(output_df, output_file, row.names = FALSE)
+  
 }

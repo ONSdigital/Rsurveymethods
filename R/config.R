@@ -4,8 +4,8 @@ INPUT_DIR <- paste(ARTIFACT_DIR, "/tests/input", sep="")
 OUTPUT_DIR <- paste(ARTIFACT_DIR, "/tests/output", sep="")
 
 # Input files
-DATA_FILENAME <- "input_regen_test_data.csv"
-POPULATION_COUNTS_FILENAME <- "regen_population_counts_test.csv"
+DATA_FILENAME <- "snapshot-228-af4f3bd1-2aa5-4f3e-bb53-e22c1a0a4d3d_outlier_detection_imputation_outputs.csv"
+POPULATION_COUNTS_FILENAME <- "population_counts.csv"
 INPUT_DATA_FILE <- file.path(INPUT_DIR, DATA_FILENAME)
 POPULATION_COUNTS_FILE <- file.path(INPUT_DIR, POPULATION_COUNTS_FILENAME)
 
