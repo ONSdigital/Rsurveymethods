@@ -62,7 +62,7 @@ pipeline {
 
     stage("Deploy") {
       when {
-        allOf {
+        anyOf {
           branch BUILD_BRANCH
           tag BUILD_TAG
         }
