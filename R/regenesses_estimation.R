@@ -5,7 +5,8 @@ library(ReGenesees)
 #' @param input_data_with_counts Data frame with pre-processed survey data
 #' @return A list with total and size-band estimates
 #' @import ReGenesees
-
+#'
+#' @export
 regenesses_estimation <- function(input_data_with_counts) {
   # Ensure factors
   input_data_with_counts$cell <- as.factor(input_data_with_counts$cell)

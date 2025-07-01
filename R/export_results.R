@@ -3,10 +3,9 @@
 #' @param input_data_with_counts Data frame with pre-processed survey data
 #' @param size_band_estimates Data frame with size-band level estimates
 #' @param output_file Path to output CSV file
-#' @usage NULL
-#' @return None. Writes merged data to CSV.
 #'
-
+#' @return None. Writes merged data to CSV.
+#' @export
 export_results <- function(input_data_with_counts, size_band_estimates, output_file) {
 
   # Extract directory from the output file path

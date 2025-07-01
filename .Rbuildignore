@@ -4,3 +4,4 @@
 ^\.github$
 ^Makefile$
 ^Jenkinsfile$
+^main\.R$

@@ -1,21 +1,14 @@
 rm(list = ls())
-# Load the functions
-source("R/config.R")
-source("R/input_functions.R")
-source("R/pre_processing.R")
-source("R/regenesses_estimation.R")
-source("R/export_results.R")
-
 
 # Main Function to run the project
 main <- function(input_data_path, population_counts_path){
 
   # load the input data
-  input_data <- read_input_data(input_data_path)
-  population_counts <- read_input_data(population_counts_path)
+  input_data <- Rsurveymethods::read_input_data(input_data_path)
+  population_counts <- Rsurveymethods::read_input_data(population_counts_path)
 
   # pre-process the input data
-  input_data_with_counts <- pre_process_data(input_data, population_counts)
+  input_data_with_counts <- Rsurveymethods::pre_process_data(input_data, population_counts)
 
   # todo: Placeholder for estimation
   estimates <- list(
@@ -30,7 +23,7 @@ main <- function(input_data_path, population_counts_path){
     )
   )
 
-  export_results(
+  Rsurveymethods::export_results(
     input_data_with_counts,
     estimates,
     PROCESSED_DATA_FILE
