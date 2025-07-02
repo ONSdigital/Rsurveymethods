@@ -18,27 +18,29 @@
 pre_process_data <- function(input_data, population_counts) {
 
   # # Ensure 'cell' and 'period' are factors for both data frames
-  input_data$cell <- as.factor(input_data$cell)
-  input_data$period <- as.factor(input_data$period)
-  population_counts$cell <- as.factor(population_counts$cell)
-  population_counts$period <- as.factor(population_counts$period)
+  input_data$cell_no <- as.factor(input_data$cell_no)
+  population_counts$cell_no <- as.factor(population_counts$cell_no)
 
+  # replacing 0 with a small number, it will throw error if frotover is 0
+  input_data["frotover_converted_for_regen"] <- input_data["frotover"]
+  input_data[, "frotover_converted_for_regen"][input_data[, "frotover_converted_for_regen"] == 0] <- 1e-6
+  
   input_data_with_counts <- merge(
     input_data,
     population_counts,
-    by = c("period", "cell"),
+    by = c("period", "cell_no"),
     suffixes = c("", ""),
     all.x = TRUE
   )
 
   # Calculate extcalweights
   input_data_with_counts$extcalweights <-
-    input_data_with_counts$aweight *
-    input_data_with_counts$gweight
+    input_data_with_counts$design_weight *
+    input_data_with_counts$calibration_factor
 
   # Calculate winsorised_value
   input_data_with_counts$winsorised_value <-
-    input_data_with_counts$value *
+    input_data_with_counts$adjustedresponse *
     input_data_with_counts$outlier_weight
 
   return(input_data_with_counts)

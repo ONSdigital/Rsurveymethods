@@ -6,7 +6,7 @@
 \arguments{
 \item{input_data_with_counts}{Data frame with pre-processed survey data}
 
-\item{size_band_estimates}{Data frame with size-band level estimates}
+\item{estimates}{Data frame with size-band level estimates}
 
 \item{output_file}{Path to output CSV file}
 }
