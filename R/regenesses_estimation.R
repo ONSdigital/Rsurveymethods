@@ -7,23 +7,23 @@ library(ReGenesees)
 #' @import ReGenesees
 
 regenesses_estimation <- function(input_data_with_counts) {
-  # Ensure factors
-  input_data_with_counts$cell <- as.factor(input_data_with_counts$cell)
-  input_data_with_counts$calibration_group <- input_data_with_counts$cell
 
-  # Switch off contrasts for dummy encoding
-  contrasts.off()
-
-  # Set up the calibration object
+  print(paste("Running regenesses for period:", unique(input_data_with_counts$period)))
+  
+  input_data_with_counts$cell_no <- droplevels(input_data_with_counts$cell_no)
+  
+  # sigma2 needs to have only positive values, using frotover_converted_for_regen
+  # we replaced 0s with a very small number
+  
   caldesign <- ext.calibrated(
-    ids = ~ruref,
-    weights = ~aweight,
-    strata = ~cell,
-    fpc = ~univcts,
+    ids = ~reference,
+    weights = ~design_weight,
+    strata = ~cell_no,
+    fpc = ~population_count,
     data = input_data_with_counts,
     weights.cal = ~extcalweights,
-    calmodel = ~(turnover:calibration_group) - 1,
-    sigma2 = ~turnover
+    calmodel = ~(frotover_converted_for_regen:cell_no) - 1,
+    sigma2 = ~frotover_converted_for_regen
   )
 
   # Calculate estimates, SEs, and CVs of Totals at overall and size-band level
@@ -32,19 +32,8 @@ regenesses_estimation <- function(input_data_with_counts) {
     ~winsorised_value,
     estimator = 'Total',
     vartype = c('se', 'cv'),
-    by = ~question_no + period
+    by = ~questioncode
   )
 
-  New_Sizeb_estimates <- svystatTM(
-    caldesign,
-    ~winsorised_value,
-    estimator = 'Total',
-    vartype = c('se', 'cv'),
-    by = ~size_band + question_no + period
-  )
-
-  return(list(
-    total_estimates = New_Total_estimates,
-    size_band_estimates = New_Sizeb_estimates
-  ))
+  return(New_Total_estimates)
 }
