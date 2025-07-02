@@ -1,10 +1,10 @@
-test_that("regenesses_estimation correct output" , {
+test_that("regenesses_estimation correct output", {
   input_data <- data.frame(
     period = c(202201, 202201, 202201, 202201),
     cell_no = factor(c("100", "100", "200", "300")),
     reference = c(101, 102, 103, 104),
     questioncode = c(10, 10, 11, 12),
-    design_weight = c(1.1, 1.0 , 0.8, 0.9),
+    design_weight = c(1.1, 1.0, 0.8, 0.9),
     calibration_factor = c(1, 1, 1, 1),
     adjustedresponse = c(100, 200, 300, 400),
     outlier_weight = c(1, 0.5, 1, 0.5),
@@ -27,6 +27,4 @@ test_that("regenesses_estimation correct output" , {
   # Test output data frames  the correct number of rows
   # Should equal number of unique question numbers
   expect_true(nrow(output) == 3)
-
-
 })
