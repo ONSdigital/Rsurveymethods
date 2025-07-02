@@ -20,7 +20,7 @@ pipeline {
     MAIN_BRANCH = "main"
     PROXY = credentials("PROXY")
     ARTIFACTORY_CREDS = "ARTIFACTORY_CREDENTIALS"
-    ARTIFACTORY_R_REPO = "LR_rsurverymethods"
+    ARTIFACTORY_R_REPO = "LR_rsurveymethods"
     BUILD_BRANCH = "main"
     BUILD_TAG = "v*.*.*"
   }
@@ -62,7 +62,7 @@ pipeline {
 
     stage("Deploy") {
       when {
-        allOf {
+        anyOf {
           branch BUILD_BRANCH
           tag BUILD_TAG
         }
