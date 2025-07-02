@@ -8,7 +8,6 @@
 #'
 
 export_results <- function(input_data_with_counts, estimates, output_file) {
-
   # Extract directory from the output file path
   outdir <- dirname(output_file)
 
@@ -24,5 +23,4 @@ export_results <- function(input_data_with_counts, estimates, output_file) {
   )
 
   write.csv(output_df, output_file, row.names = FALSE)
-
 }

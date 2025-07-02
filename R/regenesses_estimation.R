@@ -7,14 +7,13 @@ library(ReGenesees)
 #' @import ReGenesees
 
 regenesses_estimation <- function(input_data_with_counts) {
-
   print(paste("Running regenesses for period:", unique(input_data_with_counts$period)))
-  
+
   input_data_with_counts$cell_no <- droplevels(input_data_with_counts$cell_no)
-  
+
   # sigma2 needs to have only positive values, using frotover_converted_for_regen
   # we replaced 0s with a very small number
-  
+
   caldesign <- ext.calibrated(
     ids = ~reference,
     weights = ~design_weight,
@@ -22,7 +21,7 @@ regenesses_estimation <- function(input_data_with_counts) {
     fpc = ~population_count,
     data = input_data_with_counts,
     weights.cal = ~extcalweights,
-    calmodel = ~(frotover_converted_for_regen:cell_no) - 1,
+    calmodel = ~ (frotover_converted_for_regen:cell_no) - 1,
     sigma2 = ~frotover_converted_for_regen
   )
 
@@ -30,8 +29,8 @@ regenesses_estimation <- function(input_data_with_counts) {
   New_Total_estimates <- svystatTM(
     caldesign,
     ~winsorised_value,
-    estimator = 'Total',
-    vartype = c('se', 'cv'),
+    estimator = "Total",
+    vartype = c("se", "cv"),
     by = ~questioncode
   )
 

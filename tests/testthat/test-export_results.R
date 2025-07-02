@@ -9,11 +9,11 @@ test_that("export_results writes merged data to CSV correctly", {
 
   # 2. Create mock size_band_estimates list with total_estimates data frame
   size_band_estimates <- data.frame(
-      period = c(202201, 202201, 202201),
-      questioncode = 1:3,
-      size_band = c("A", "B", "C"),
-      estimate = c(100, 200, 300),
-      stringsAsFactors = FALSE
+    period = c(202201, 202201, 202201),
+    questioncode = 1:3,
+    size_band = c("A", "B", "C"),
+    estimate = c(100, 200, 300),
+    stringsAsFactors = FALSE
   )
 
   # create temp file for output
