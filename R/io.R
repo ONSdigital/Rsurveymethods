@@ -55,7 +55,7 @@ write_csv_wrapper <- function(df,storage_system,save_path){
   
   if (!storage_system %in% accepted_values_for_system){ 
     stop(storage_system,
-         "is not an accepted argument, accepte values are: "
+         "is not an accepted argument, accepted values are: ",
          accepted_values_for_system
       )}
   
