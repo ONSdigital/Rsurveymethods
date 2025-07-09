@@ -8,6 +8,8 @@
 #' @export
 main <- function(storage_system,input_data_path, population_counts_path, output_path){
 
+  check_storage_system_arg(storage_system)
+
   # load the input data
   input_data <-read_csv_wrapper(storage_system,input_data_path)
   population_counts <- read_csv_wrapper(storage_system,population_counts_path)
@@ -42,9 +44,9 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 )
 
   out_file_name <- create_rsurveymethods_file_name(input_data_path)
-  out_full_path <- paste0(output_path,out_file_name)
+  out_full_path <- paste(output_path,out_file_name,sep="/")
 
-  write_csv_wrapper(storage_system,output_df,out_full_path)
+  write_csv_wrapper(output_df,storage_system,out_full_path)
   print("Process was succesful")
 }
 

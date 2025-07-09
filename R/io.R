@@ -8,14 +8,6 @@
 #' @examples run_hdfs(-get,"some/path/to.csv")
 read_csv_wrapper <- function(storage_system,input_data_path){
 
-  accepted_values_for_system <- c("local","s3")
-
-  if (!storage_system %in% accepted_values_for_system){
-    stop(storage_system,
-         "is not an accepted argument, accepte values are: ",
-         accepted_values_for_system
-      )}
-
   if (storage_system=="local"){
 
     df = read.csv(input_data_path)
@@ -51,13 +43,6 @@ read_csv_wrapper <- function(storage_system,input_data_path){
 #' @examples run_hdfs(-get,"some/path/to.csv")
 write_csv_wrapper <- function(df,storage_system,save_path){
 
-  accepted_values_for_system <- c("local","s3")
-
-  if (!storage_system %in% accepted_values_for_system){
-    stop(storage_system,
-         "is not an accepted argument, accepted values are: ",
-         accepted_values_for_system
-      )}
 
   if (storage_system=="local"){
 

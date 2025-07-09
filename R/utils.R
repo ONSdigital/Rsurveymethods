@@ -81,4 +81,20 @@ create_rsurveymethods_file_name <- function(input_data_path){
   }
 
 
+#' Check if argument for storage system is valid
+#'
+#' @param storage_system
+#'
+check_storage_system_arg <- function(storage_system){
+
+  accepted_values_for_system <- c("local","s3")
+
+  if (!storage_system %in% accepted_values_for_system){
+    stop(storage_system,
+         "is not an accepted argument, accepted values are: ",
+         accepted_values_for_system
+    )}
+
+
+}
 
