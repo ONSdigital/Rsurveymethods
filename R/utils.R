@@ -83,7 +83,7 @@ create_rsurveymethods_file_name <- function(input_data_path){
 
 #' Check if storage system argument is valid
 #'
-#' @param storage_system
+#' @param storage_system input argument to check
 #'
 #' @return None
 

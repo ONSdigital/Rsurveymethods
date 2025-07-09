@@ -7,7 +7,7 @@
 check_storage_system_arg(storage_system)
 }
 \arguments{
-\item{storage_system}{}
+\item{storage_system}{input argument to check}
 }
 \value{
 None
