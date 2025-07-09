@@ -41,7 +41,7 @@ download_file_from_s3 <- function(input_full_path_s3,local_path){
   # Error handling via status output in run_hdfs
   run_hdfs(c("-get",input_full_path_s3,local_path))
 
-  print(paste("Downloading", file_name, "was succesful."))
+  print(paste("Downloading",basename(input_full_path_s3), "was succesful."))
 
   }
 
@@ -59,9 +59,9 @@ upload_file_to_s3 <- function(local_full_path,save_path_s3){
 
 
   # Error handling via status output in run_hdfs
-  run_hdfs(c("-put",local_full_path,save_path))
+  run_hdfs(c("-put",local_full_path,save_path_s3))
 
-  print(paste("Uploading", file_name, "was succesful."))
+  print(paste("Uploading",basename(local_full_path), "was succesful."))
 
   }
 

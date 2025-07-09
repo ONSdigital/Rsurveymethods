@@ -21,7 +21,7 @@ read_csv_wrapper <- function(storage_system,input_data_path){
 
     download_file_from_s3(input_data_path,"temp_data")
 
-    temp_path = paste("temp_data",basename(full_path),sep="/")
+    temp_path = paste("temp_data",basename(input_data_path),sep="/")
 
     df = read.csv(temp_path)
 
@@ -55,7 +55,7 @@ write_csv_wrapper <- function(df,storage_system,save_path){
     #create directory to write data locally
     dir.create(file.path("temp_data"), showWarnings = FALSE)
 
-    temp_path = paste("temp_data",basename(full_path),sep="/")
+    temp_path = paste("temp_data",basename(save_path),sep="/")
 
     write.csv(df, temp_path, row.names = FALSE)
 
