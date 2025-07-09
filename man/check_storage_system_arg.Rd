@@ -2,13 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{check_storage_system_arg}
 \alias{check_storage_system_arg}
-\title{Check if argument for storage system is valid}
+\title{Check if storage system argument is valid}
 \usage{
 check_storage_system_arg(storage_system)
 }
 \arguments{
 \item{storage_system}{}
 }
+\value{
+None
+}
 \description{
-Check if argument for storage system is valid
+Check if storage system argument is valid
 }
