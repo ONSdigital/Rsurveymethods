@@ -37,11 +37,13 @@ read_csv_wrapper <- function(storage_system,input_data_path){
 #'
 #' @param storage_system accepts local or s3
 #' @param input_data_path full path of data
+#' @param file_name name of file to export
+
 #'
 #' @return df dataframe
 #'
 #' @examples run_hdfs(-get,"some/path/to.csv")
-write_csv_wrapper <- function(df,storage_system,save_path){
+write_csv_wrapper <- function(df,storage_system,save_path,file_name){
 
 
   if (storage_system=="local"){
@@ -55,11 +57,11 @@ write_csv_wrapper <- function(df,storage_system,save_path){
     #create directory to write data locally
     dir.create(file.path("temp_data"), showWarnings = FALSE)
 
-    temp_path = paste("temp_data",basename(save_path),sep="/")
+    temp_path = paste("temp_data",file_name,sep="/")
 
     write.csv(df, temp_path, row.names = FALSE)
 
-    upload_file_to_s3(temp_pathsave_path)
+    upload_file_to_s3(temp_path,save_path)
 
     unlink("temp_data", recursive = TRUE)
 

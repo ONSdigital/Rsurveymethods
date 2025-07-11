@@ -4,10 +4,12 @@
 \alias{write_csv_wrapper}
 \title{Wrapper csv writer for local or s3 data storage}
 \usage{
-write_csv_wrapper(df, storage_system, save_path)
+write_csv_wrapper(df, storage_system, save_path, file_name)
 }
 \arguments{
 \item{storage_system}{accepts local or s3}
+
+\item{file_name}{name of file to export}
 
 \item{input_data_path}{full path of data}
 }

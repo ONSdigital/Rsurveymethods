@@ -43,10 +43,9 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
   by = c("period", "questioncode")
 )
 
-  out_file_name <- create_rsurveymethods_file_name(input_data_path)
-  out_full_path <- paste(output_path,out_file_name,sep="/")
+  file_name <- create_rsurveymethods_file_name(input_data_path)
 
-  write_csv_wrapper(output_df,storage_system,out_full_path)
+  write_csv_wrapper(output_df,storage_system,output_path,file_name)
   print("Process was succesful")
 }
 

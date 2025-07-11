@@ -16,10 +16,12 @@ run_hdfs <- function(...) {
   full_cmd_command <- paste("hdfs",paste(cmd_args,collapse = ' '))
 
   if (r != 0){
-    stop("Running command:",
-         full_cmd_command,
-         "failed"
-      )}
+    print("I am here")
+    #stop("Running command:",
+     #    full_cmd_command,
+    #     "failed"
+    #  )
+  }
   return (r)
   }
 
