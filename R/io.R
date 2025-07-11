@@ -5,7 +5,7 @@
 #'
 #' @return df dataframe
 #'
-#' @examples run_hdfs(-get,"some/path/to.csv")
+#' @examples read_csv_wrapper("local","some_path/to_my_csv.csv")
 read_csv_wrapper <- function(storage_system,input_data_path){
 
   if (storage_system=="local"){
@@ -32,17 +32,15 @@ read_csv_wrapper <- function(storage_system,input_data_path){
   return (df)
   }
 
-
 #' Wrapper csv writer for local or s3 data storage
 #'
 #' @param storage_system accepts local or s3
 #' @param input_data_path full path of data
 #' @param file_name name of file to export
-
 #'
 #' @return df dataframe
 #'
-#' @examples run_hdfs(-get,"some/path/to.csv")
+#' @examples write_csv_wrapper(df,"local","somepath","filename.csv")
 write_csv_wrapper <- function(df,storage_system,save_path,file_name){
 
 

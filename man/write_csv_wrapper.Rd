@@ -20,5 +20,5 @@ df dataframe
 Wrapper csv writer for local or s3 data storage
 }
 \examples{
-run_hdfs(-get,"some/path/to.csv")
+write_csv_wrapper(df,"local","somepath","filename.csv")
 }

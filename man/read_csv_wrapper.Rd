@@ -18,5 +18,5 @@ df dataframe
 Wrapper csv reader for local or s3 data storage
 }
 \examples{
-run_hdfs(-get,"some/path/to.csv")
+read_csv_wrapper("local","some_path/to_my_csv.csv")
 }

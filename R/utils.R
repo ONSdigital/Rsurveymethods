@@ -33,6 +33,7 @@ run_hdfs <- function(...) {
 #' @param local_path path to local storage
 #'
 #' @return None
+#' @export
 #'
 #' @examples download_file_from_s3(
 #' "s3a://a-bucket-name/folder1/subfolder1/base_name.csv",
@@ -53,6 +54,7 @@ download_file_from_s3 <- function(input_full_path_s3,local_path){
 #' @param save_path_s3 path to S3
 #'
 #' @return None
+#' @export
 #'
 #' @examples download_file_from_s3(
 #' "local_folder1/base_name.csv",
@@ -72,7 +74,7 @@ upload_file_to_s3 <- function(local_full_path,save_path_s3){
 #' @param input_data_path full path name
 #'
 #' @return filename
-#'
+#' @export
 create_rsurveymethods_file_name <- function(input_data_path){
 
   version <- packageVersion("Rsurveymethods")
@@ -88,7 +90,7 @@ create_rsurveymethods_file_name <- function(input_data_path){
 #' @param storage_system input argument to check
 #'
 #' @return None
-
+#' @export
 check_storage_system_arg <- function(storage_system){
 
   accepted_values_for_system <- c("local","s3")
