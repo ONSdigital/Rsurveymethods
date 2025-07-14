@@ -7,18 +7,17 @@
 write_csv_wrapper(df, storage_system, save_path, file_name)
 }
 \arguments{
+\item{df}{dataframe to export}
+
 \item{storage_system}{accepts local or s3}
 
-\item{file_name}{name of file to export}
+\item{save_path}{full path of data}
 
-\item{input_data_path}{full path of data}
+\item{file_name}{name of file to export}
 }
 \value{
 df dataframe
 }
 \description{
 Wrapper csv writer for local or s3 data storage
-}
-\examples{
-write_csv_wrapper(df,"local","somepath","filename.csv")
 }

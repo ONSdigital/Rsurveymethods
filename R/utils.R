@@ -3,8 +3,7 @@
 #' @param ... arguments to run
 #'
 #' @return r command status
-#'
-#' @examples run_hdfs(-get,"some/path/to.csv")
+#' @export
 run_hdfs <- function(...) {
 
   cmd_args <- rbind("dfs",...)
@@ -16,29 +15,24 @@ run_hdfs <- function(...) {
   full_cmd_command <- paste("hdfs",paste(cmd_args,collapse = ' '))
 
   if (r != 0){
-    print("I am here")
-    #stop("Running command:",
-     #    full_cmd_command,
-    #     "failed"
-    #  )
+    print(paste0(
+      "Running command: ",
+      full_cmd_command,
+      "had status ",
+      r
+    )
+         )
   }
   return (r)
   }
 
 #' Download file from AWS S3 locally
 #'
-#' @param AWS S3 bucket where data are stored
-#' @param hdfs_path path to file within bucket
-#' @param file_name base file name
+#' @param input_full_path_s3 AWS S3 path where data are stored
 #' @param local_path path to local storage
 #'
 #' @return None
 #' @export
-#'
-#' @examples download_file_from_s3(
-#' "s3a://a-bucket-name/folder1/subfolder1/base_name.csv",
-#' "local_folder1")
-
 download_file_from_s3 <- function(input_full_path_s3,local_path){
 
   # Error handling via status output in run_hdfs
@@ -55,10 +49,6 @@ download_file_from_s3 <- function(input_full_path_s3,local_path){
 #'
 #' @return None
 #' @export
-#'
-#' @examples download_file_from_s3(
-#' "local_folder1/base_name.csv",
-#' "s3a://a-bucket-name/folder1/subfolder1")
 upload_file_to_s3 <- function(local_full_path,save_path_s3){
 
 

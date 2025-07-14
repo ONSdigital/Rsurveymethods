@@ -15,6 +15,3 @@ r command status
 \description{
 Run an hdfs command as hdfs dfs arg1 arg2
 }
-\examples{
-run_hdfs(-get,"some/path/to.csv")
-}

@@ -17,6 +17,3 @@ df dataframe
 \description{
 Wrapper csv reader for local or s3 data storage
 }
-\examples{
-read_csv_wrapper("local","some_path/to_my_csv.csv")
-}

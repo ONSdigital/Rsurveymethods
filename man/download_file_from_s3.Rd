@@ -7,22 +7,13 @@
 download_file_from_s3(input_full_path_s3, local_path)
 }
 \arguments{
+\item{input_full_path_s3}{AWS S3 path where data are stored}
+
 \item{local_path}{path to local storage}
-
-\item{AWS}{S3 bucket where data are stored}
-
-\item{hdfs_path}{path to file within bucket}
-
-\item{file_name}{base file name}
 }
 \value{
 None
 }
 \description{
 Download file from AWS S3 locally
-}
-\examples{
-download_file_from_s3(
-"s3a://a-bucket-name/folder1/subfolder1/base_name.csv",
-"local_folder1")
 }

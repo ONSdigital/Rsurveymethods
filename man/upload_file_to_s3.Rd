@@ -17,8 +17,3 @@ None
 \description{
 Upload file to AWS S3
 }
-\examples{
-download_file_from_s3(
-"local_folder1/base_name.csv",
-"s3a://a-bucket-name/folder1/subfolder1")
-}
