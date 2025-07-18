@@ -12,17 +12,20 @@ run_hdfs <- function(...) {
 
   # Status 0 is success
 
-  full_cmd_command <- paste("hdfs",paste(cmd_args,collapse = ' '))
+  full_cmd_command <- paste("hdfs",paste(cmd_args,collapse = ' '),sep=" ")
 
-  if (r != 0){
+  if (r == 0){
     print(paste0(
       "Running command: ",
       full_cmd_command,
-      "had status ",
-      r
-    )
-         )
+      " was succesful."
+    ))
   }
+  else (print(paste0(
+      "Running command: ",
+      full_cmd_command,
+      " had status ",r)))
+
   return (r)
   }
 
@@ -35,11 +38,9 @@ run_hdfs <- function(...) {
 #' @export
 download_file_from_s3 <- function(input_full_path_s3,local_path){
 
-  # Error handling via status output in run_hdfs
-  run_hdfs(c("-get",input_full_path_s3,local_path))
-
-  print(paste("Downloading",basename(input_full_path_s3), "was succesful."))
-
+  print(paste("Downloading",basename(input_full_path_s3)))
+  
+  run_hdfs("-get",input_full_path_s3,local_path)
   }
 
 #' Upload file to AWS S3
@@ -51,12 +52,9 @@ download_file_from_s3 <- function(input_full_path_s3,local_path){
 #' @export
 upload_file_to_s3 <- function(local_full_path,save_path_s3){
 
+  print(paste("Uploading",basename(local_full_path)))
 
-  # Error handling via status output in run_hdfs
-  run_hdfs(c("-put",local_full_path,save_path_s3))
-
-  print(paste("Uploading",basename(local_full_path), "was succesful."))
-
+  run_hdfs("-put",local_full_path,save_path_s3)
   }
 
 #' Appends Rsurveymethods and version in file name
