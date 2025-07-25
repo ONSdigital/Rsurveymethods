@@ -44,8 +44,8 @@ write_csv_wrapper <- function(df,storage_system,save_path,file_name){
 
 
   if (storage_system=="local"){
-
-    write.csv(df, save_path, row.names = FALSE)
+    full_path = paste(save_path,file_name,sep="/")
+    write.csv(df, full_path, row.names = FALSE)
 
   }
 
