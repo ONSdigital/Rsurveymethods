@@ -35,7 +35,9 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 
   list_of_dfs_standard_error <- lapply(split_by_period_qnumber, standard_error_estimation)
   print("writing se output (TEMP)")
-  standard_errors <- dplyr::bind_rows(list_of_dfs_standard_error,.id = "period")
+  standard_errors <- dplyr::bind_rows(list_of_dfs_standard_error, .id = "period_questioncode")
+  # Split the .id column into "period" and "questioncode"
+  standard_errors <- tidyr::separate(standard_errors, period_questioncode, into = c("period", "questioncode"), sep = "\\.")
   file_name_se <- "se_temp.csv"
   write.csv(standard_errors, file_name_se, row.names = FALSE)
 

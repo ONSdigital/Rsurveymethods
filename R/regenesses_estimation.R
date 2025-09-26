@@ -40,7 +40,7 @@ regenesses_estimation <- function(input_data_with_counts) {
 
 standard_error_estimation <- function(input_data_with_counts) {
 
-  print(paste("Running regenesses for period:", unique(input_data_with_counts$period), unique(input_data_with_counts$questioncode)))
+  print(paste("Running standard errors for period and questioncode:", unique(input_data_with_counts$period), unique(input_data_with_counts$questioncode)))
 
 
   input_data_with_counts$cell_no <- droplevels(input_data_with_counts$cell_no)
