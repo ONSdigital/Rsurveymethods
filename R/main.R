@@ -34,12 +34,13 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
   split_by_period_qnumber <- split(input_data_with_counts, list(input_data_with_counts$period, input_data_with_counts$questioncode))
 
   list_of_dfs_standard_error <- lapply(split_by_period_qnumber, standard_error_estimation)
-  print("writing se output (TEMP)")
+  print("writing se output")
   standard_errors <- dplyr::bind_rows(list_of_dfs_standard_error, .id = "period_questioncode")
   # Split the .id column into "period" and "questioncode"
   standard_errors <- tidyr::separate(standard_errors, period_questioncode, into = c("period", "questioncode"), sep = "\\.")
-  file_name_se <- "se_temp.csv"
-  write.csv(standard_errors, file_name_se, row.names = FALSE)
+  version <- packageVersion("Rsurveymethods")
+  file_name_se <- paste0("standard_errors_output_v", version, ".csv")
+  write_csv_wrapper(standard_errors, storage_system, output_path, file_name_se)
 
 
   print("Combining estimates")
