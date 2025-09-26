@@ -31,8 +31,19 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 
   list_of_dfs <-lapply(split_by_period,regenesses_estimation)
 
+  split_by_period_qnumber <- split(input_data_with_counts, list(input_data_with_counts$period, input_data_with_counts$questioncode))
+
+  list_of_dfs_standard_error <- lapply(split_by_period_qnumber, standard_error_estimation)
+  print("writing se output (TEMP)")
+  standard_errors <- dplyr::bind_rows(list_of_dfs_standard_error,.id = "period")
+  file_name_se <- "se_temp.csv"
+  write.csv(standard_errors, file_name_se, row.names = FALSE)
+
+
   print("Combining estimates")
   estimates <- dplyr::bind_rows(list_of_dfs,.id = "period")
+
+
 
   print("Merging estimates to source dataframe")
 
