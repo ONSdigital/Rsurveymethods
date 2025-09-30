@@ -6,12 +6,16 @@
 #' @param output_path file path to save results
 #'
 #' @export
-main <- function(storage_system,input_data_path, population_counts_path, output_path){
+main <- function(storage_system,input_data_path, population_counts_path, output_path, selected_period=""){
 
   check_storage_system_arg(storage_system)
 
   # load the input data
   input_data <-read_csv_wrapper(storage_system,input_data_path)
+  if (selected_period != "") {
+    # Filter input data if a given period is provided, otherwise run all periods.
+    input_data <- input_data[input_data$period == selected_period,]
+  }
   population_counts <- read_csv_wrapper(storage_system,population_counts_path)
 
   # pre-process the input data
@@ -33,33 +37,29 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 
   split_by_period_qnumber <- split(input_data_with_counts, list(input_data_with_counts$period, input_data_with_counts$questioncode))
 
-  list_of_dfs_standard_error <- lapply(split_by_period_qnumber, standard_error_estimation)
-  print("writing se output")
-  standard_errors <- dplyr::bind_rows(list_of_dfs_standard_error, .id = "period_questioncode")
-  # Split the .id column into "period" and "questioncode"
-  standard_errors <- tidyr::separate(standard_errors, period_questioncode, into = c("period", "questioncode"), sep = "\\.")
-  version <- packageVersion("Rsurveymethods")
-  file_name_se <- paste0("standard_errors_output_v", version, ".csv")
-  write_csv_wrapper(standard_errors, storage_system, output_path, file_name_se)
-
 
   print("Combining estimates")
   estimates <- dplyr::bind_rows(list_of_dfs,.id = "period")
+  output_estimates <- estimates %>%
+    dplyr::rename(
+      std_error = SE.Total.winsorised_value,
+      cov = CV.Total.winsorised_value,
+      sample_var = Total.winsorised_value,
+    )
+  write_csv_wrapper(output_estimates,storage_system, output_path, "estimates.csv")
+  format_se_for_publication(estimates,storage_system, output_path,selected_period)
 
 
 
   print("Merging estimates to source dataframe")
-
-
   output_df <- merge(
-  input_data_with_counts,
-  estimates,
-  by = c("period", "questioncode")
-)
+    input_data_with_counts,
+    estimates,
+    by = c("period", "questioncode")
+  )
 
   file_name <- create_rsurveymethods_file_name(input_data_path)
 
   write_csv_wrapper(output_df,storage_system,output_path,file_name)
   print("Process was succesful")
 }
-
