@@ -98,6 +98,7 @@ check_storage_system_arg <- function(storage_system){
 #' @param df dataframe to format for standard errors publication
 #' @param storage_system should be local or s3
 #' @param output_path directory to output formatted df
+#' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
 #' @return r command status
 #' @export

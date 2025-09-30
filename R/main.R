@@ -4,6 +4,7 @@
 #' @param input_data_path file path of main dataframe
 #' @param population_counts_path file path of population counts
 #' @param output_path file path to save results
+#' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
 #' @export
 main <- function(storage_system,input_data_path, population_counts_path, output_path, selected_period=""){
