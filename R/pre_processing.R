@@ -24,7 +24,8 @@ pre_process_data <- function(input_data, population_counts) {
   # replacing 0 with a small number, it will throw error if frotover is 0
   input_data["frotover_converted_for_regen"] <- input_data["frotover"]
   input_data[, "frotover_converted_for_regen"][input_data[, "frotover_converted_for_regen"] == 0] <- 1e-6
-  
+
+
   input_data_with_counts <- merge(
     input_data,
     population_counts,
@@ -42,6 +43,10 @@ pre_process_data <- function(input_data, population_counts) {
   input_data_with_counts$winsorised_value <-
     input_data_with_counts$adjustedresponse *
     input_data_with_counts$outlier_weight
+
+  print("converting winsorised_value into £000's")
+  input_data_with_counts$winsorised_value = input_data_with_counts$winsorised_value / 1000
+
 
   return(input_data_with_counts)
 }

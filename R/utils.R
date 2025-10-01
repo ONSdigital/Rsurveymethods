@@ -112,15 +112,11 @@ format_se_for_publication <- function(df, storage_system, output_path,selected_p
   question_order <- list(290, 201, 211, 221, 231, 241, 242, 202, 212, 222, 232, 243)
   df_filtered <- df_filtered[order(match(df_filtered$questioncode, question_order)), ]
 
-  # Converting may be done earlier
-  # Converting to £000's
-  # df_filtered$Total.winsorised_value <- df_filtered$Total.winsorised_value / 1000
-
   df_filtered <- df_filtered %>%
     dplyr::rename(
-      std_error = SE.Total.winsorised_value,
-      cov = CV.Total.winsorised_value,
-      sample_var = Total.winsorised_value,
+      std_error_p_thousands = SE.Total.winsorised_value,
+      covs = CV.Total.winsorised_value,
+      sample_var_p_thousands = Total.winsorised_value,
     )
   # Unsure if this is needed at this point
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
