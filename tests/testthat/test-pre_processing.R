@@ -34,7 +34,7 @@ test_that("pre_processing correct output", {
     outlier_weight = c(1, 0.5, 1, 0.5),
     frotover = c(0, 100, 200, 300),
     extcalweights = c(1.1, 1.0, 0.8, 0.9),
-    winsorised_value = c(100, 100, 300, 200),
+    winsorised_value = c(0.100, 0.100, 0.300, 0.200),
     frotover_converted_for_regen = c(1e-6, 100, 200, 300),
     count = c(2, 2, 1, 1),
     stringsAsFactors = FALSE

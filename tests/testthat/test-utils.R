@@ -22,9 +22,9 @@ test_that("test format_se_for_publication formats file correctly (no period give
     data.frame(
       questioncode = c(101, 102, 103, 104),
       period = c(202202, 202202, 202202, 202202),
-      std_error = c(1.0, 2.0, 3.0, 4.0),
+      std_error_p_thousands = c(1.0, 2.0, 3.0, 4.0),
       cov= c(0.1, 0.2, 0.3, 0.4),
-      sample_var = c(10, 20, 30, 40)
+      sample_var_p_thousands = c(10, 20, 30, 40)
     )
   expect_equal(df_actual, df_expected)
 
@@ -47,9 +47,9 @@ test_that("test format_se_for_publication formats file correctly period (period 
     data.frame(
       questioncode = c(101, 102, 103, 104),
       period = c(202201, 202201, 202201, 202201),
-      std_error = c(1.5, 2.5, 3.5, 4.5),
+      std_error_p_thousands = c(1.5, 2.5, 3.5, 4.5),
       cov = c(0.1, 0.2, 0.3, 0.4),
-      sample_var = c(15, 25, 35, 45)
+      sample_var_p_thousands = c(15, 25, 35, 45)
     )
   expect_equal(df_actual, df_expected)
 

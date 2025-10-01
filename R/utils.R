@@ -115,7 +115,7 @@ format_se_for_publication <- function(df, storage_system, output_path,selected_p
   df_filtered <- df_filtered %>%
     dplyr::rename(
       std_error_p_thousands = SE.Total.winsorised_value,
-      covs = CV.Total.winsorised_value,
+      cov = CV.Total.winsorised_value,
       sample_var_p_thousands = Total.winsorised_value,
     )
   # Unsure if this is needed at this point
