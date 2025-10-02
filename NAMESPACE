@@ -3,6 +3,7 @@
 export(check_storage_system_arg)
 export(create_rsurveymethods_file_name)
 export(download_file_from_s3)
+export(format_se_for_publication)
 export(main)
 export(read_csv_wrapper)
 export(run_hdfs)

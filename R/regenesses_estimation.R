@@ -9,12 +9,12 @@ library(ReGenesees)
 regenesses_estimation <- function(input_data_with_counts) {
 
   print(paste("Running regenesses for period:", unique(input_data_with_counts$period)))
-  
+
   input_data_with_counts$cell_no <- droplevels(input_data_with_counts$cell_no)
-  
+
   # sigma2 needs to have only positive values, using frotover_converted_for_regen
   # we replaced 0s with a very small number
-  
+
   caldesign <- ext.calibrated(
     ids = ~reference,
     weights = ~design_weight,

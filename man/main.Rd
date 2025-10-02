@@ -4,7 +4,13 @@
 \alias{main}
 \title{Main Function to run the project}
 \usage{
-main(storage_system, input_data_path, population_counts_path, output_path)
+main(
+  storage_system,
+  input_data_path,
+  population_counts_path,
+  output_path,
+  selected_period = ""
+)
 }
 \arguments{
 \item{storage_system}{accepts local or s3}
@@ -14,6 +20,8 @@ main(storage_system, input_data_path, population_counts_path, output_path)
 \item{population_counts_path}{file path of population counts}
 
 \item{output_path}{file path to save results}
+
+\item{selected_period}{optional, if provided only that period will be processed YYYYMM format}
 }
 \description{
 Main Function to run the project

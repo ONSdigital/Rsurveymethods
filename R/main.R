@@ -4,14 +4,19 @@
 #' @param input_data_path file path of main dataframe
 #' @param population_counts_path file path of population counts
 #' @param output_path file path to save results
+#' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
 #' @export
-main <- function(storage_system,input_data_path, population_counts_path, output_path){
+main <- function(storage_system,input_data_path, population_counts_path, output_path, selected_period=""){
 
   check_storage_system_arg(storage_system)
 
   # load the input data
   input_data <-read_csv_wrapper(storage_system,input_data_path)
+  if (selected_period != "") {
+    # Filter input data if a given period is provided, otherwise run all periods.
+    input_data <- input_data[input_data$period == selected_period,]
+  }
   population_counts <- read_csv_wrapper(storage_system,population_counts_path)
 
   # pre-process the input data
@@ -31,21 +36,31 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 
   list_of_dfs <-lapply(split_by_period,regenesses_estimation)
 
+  split_by_period_qnumber <- split(input_data_with_counts, list(input_data_with_counts$period, input_data_with_counts$questioncode))
+
+
   print("Combining estimates")
   estimates <- dplyr::bind_rows(list_of_dfs,.id = "period")
+  output_estimates <- estimates %>%
+    dplyr::rename(
+      std_error = SE.Total.winsorised_value,
+      cov = CV.Total.winsorised_value,
+      sample_var = Total.winsorised_value,
+    )
+  write_csv_wrapper(output_estimates,storage_system, output_path, "estimates.csv")
+  format_se_for_publication(estimates,storage_system, output_path,selected_period)
+
+
 
   print("Merging estimates to source dataframe")
-
-
   output_df <- merge(
-  input_data_with_counts,
-  estimates,
-  by = c("period", "questioncode")
-)
+    input_data_with_counts,
+    estimates,
+    by = c("period", "questioncode")
+  )
 
   file_name <- create_rsurveymethods_file_name(input_data_path)
 
   write_csv_wrapper(output_df,storage_system,output_path,file_name)
   print("Process was succesful")
 }
-
