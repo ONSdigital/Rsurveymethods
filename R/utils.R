@@ -114,9 +114,9 @@ format_se_for_publication <- function(df, storage_system, output_path,selected_p
 
   df_filtered <- df_filtered %>%
     dplyr::rename(
-      std_error_p_thousands = SE.Total.winsorised_value,
+      std_error_p_millions = SE.Total.winsorised_value,
       cov = CV.Total.winsorised_value,
-      sample_var_p_thousands = Total.winsorised_value,
+      sample_var_p_millions = Total.winsorised_value,
     )
   # Unsure if this is needed at this point
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
