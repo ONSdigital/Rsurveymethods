@@ -21,7 +21,7 @@ format_se_for_publication(
 \item{selected_period}{optional, if provided only that period will be processed YYYYMM format}
 }
 \value{
-r command status
+None
 }
 \description{
 format standard errors file for publication
