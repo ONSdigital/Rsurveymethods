@@ -100,7 +100,7 @@ check_storage_system_arg <- function(storage_system){
 #' @param output_path directory to output formatted df
 #' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
-#' @return r command status
+#' @return None
 #' @export
 format_se_for_publication <- function(df, storage_system, output_path,selected_period=""){
   # Filtering to only include most recent period

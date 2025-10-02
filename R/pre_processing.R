@@ -44,7 +44,7 @@ pre_process_data <- function(input_data, population_counts) {
     input_data_with_counts$adjustedresponse *
     input_data_with_counts$outlier_weight
 
-  print("converting winsorised_value into £ million")
+  print("converting winsorised_value into pounds million")
   input_data_with_counts$winsorised_value = input_data_with_counts$winsorised_value / 1000000
 
 
