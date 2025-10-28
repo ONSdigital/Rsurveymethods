@@ -9,7 +9,7 @@ df <- data.frame(
 
 test_that("test format_se_for_publication formats file correctly (no period given)", {
   dir.create("temp")
-  format_se_for_publication(df, "local", "temp")
+  format_se_for_publication(df, "network", "temp")
   files <- list.files("temp")
 
   expect_setequal(files, c("standard_errors_formatted_for_publication_period_202202.csv"))
@@ -34,7 +34,7 @@ test_that("test format_se_for_publication formats file correctly (no period give
 
 test_that("test format_se_for_publication formats file correctly period (period given) ", {
   dir.create("temp")
-  format_se_for_publication(df, "local", "temp","202201")
+  format_se_for_publication(df, "network", "temp","202201")
   files <- list.files("temp")
 
   expect_setequal(files, c("standard_errors_formatted_for_publication_period_202201.csv"))

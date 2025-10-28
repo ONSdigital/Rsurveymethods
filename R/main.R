@@ -1,3 +1,26 @@
+main <- function(config_path) {
+  config <- jsonlite::fromJSON(config_path)
+
+  run_id <- readLines(config$run_id_path, warn = FALSE)
+  formatted_input_data_path <- format_file_name(config$input_data_path, run_id)
+  formatted_population_counts_path <- format_file_name(config$population_counts_path, run_id)
+
+  run_regenesess(
+    storage_system = config$storage_system,
+    input_data_path = formatted_input_data_path,
+    population_counts_path = formatted_population_counts_path,
+    output_path = config$output_path,
+    selected_period = config$selected_period,
+    run_id = run_id,
+    debug_mode = config$debug_mode
+  )
+}
+
+format_file_name <- function(file_name, run_id) {
+  file_name <- paste0(file_name, "_", run_id, ".csv")
+  return(file_name)
+}
+
 #' Main Function to run the project
 #'
 #' @param storage_system accepts local or s3
@@ -7,10 +30,8 @@
 #' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
 #' @export
-main <- function(storage_system,input_data_path, population_counts_path, output_path, selected_period=""){
-
-  check_storage_system_arg(storage_system)
-
+run_regenesess <- function(storage_system = c("network", "s3"),input_data_path, population_counts_path, output_path, run_id, debug_mode, selected_period=""){
+  storage_system <- match.arg(storage_system)
   # load the input data
   input_data <-read_csv_wrapper(storage_system,input_data_path)
   if (selected_period != "") {
@@ -41,26 +62,25 @@ main <- function(storage_system,input_data_path, population_counts_path, output_
 
   print("Combining estimates")
   estimates <- dplyr::bind_rows(list_of_dfs,.id = "period")
-  output_estimates <- estimates %>%
-    dplyr::rename(
-      std_error = SE.Total.winsorised_value,
-      cov = CV.Total.winsorised_value,
-      sample_var = Total.winsorised_value,
+  formatted_df = format_se_for_publication(estimates, selected_period)
+  print("Standard errors formatted for publication")
+
+  filename <- paste0("standard_errors_publication_period_", selected_period, "_", run_id, ".csv")
+  write_csv_wrapper(formatted_df, storage_system, output_path, filename)
+  print("Standard errors saved")
+
+
+  if (debug_mode) {
+    print("Merging estimates to source dataframe")
+    output_df <- merge(
+      input_data_with_counts,
+      estimates,
+      by = c("period", "questioncode")
     )
-  write_csv_wrapper(output_estimates,storage_system, output_path, "estimates.csv")
-  format_se_for_publication(estimates,storage_system, output_path,selected_period)
 
+    file_name <- create_rsurveymethods_file_name(input_data_path)
 
-
-  print("Merging estimates to source dataframe")
-  output_df <- merge(
-    input_data_with_counts,
-    estimates,
-    by = c("period", "questioncode")
-  )
-
-  file_name <- create_rsurveymethods_file_name(input_data_path)
-
-  write_csv_wrapper(output_df,storage_system,output_path,file_name)
-  print("Process was succesful")
+    write_csv_wrapper(output_df,storage_system,output_path,file_name)
+    print("Process was succesful")
+  }
 }

@@ -81,7 +81,7 @@ create_rsurveymethods_file_name <- function(input_data_path){
 #' @export
 check_storage_system_arg <- function(storage_system){
 
-  accepted_values_for_system <- c("local","s3")
+  accepted_values_for_system <- c("network","s3")
 
   if (!storage_system %in% accepted_values_for_system){
     stop(storage_system,
@@ -102,7 +102,7 @@ check_storage_system_arg <- function(storage_system){
 #'
 #' @return None
 #' @export
-format_se_for_publication <- function(df, storage_system, output_path,selected_period=""){
+format_se_for_publication <- function(df, selected_period=""){
   # Filtering to only include most recent period
   if (selected_period == "") {
     selected_period <- max(df$period)
@@ -118,9 +118,8 @@ format_se_for_publication <- function(df, storage_system, output_path,selected_p
       cov = CV.Total.winsorised_value,
       sample_var_p_millions = Total.winsorised_value,
     )
+  return(df_filtered)
   # Unsure if this is needed at this point
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
-  filename <- paste0("standard_errors_formatted_for_publication_period_", selected_period, ".csv")
-  write_csv_wrapper(df_filtered, storage_system, output_path, filename)
 }
 
