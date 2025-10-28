@@ -8,14 +8,9 @@ df <- data.frame(
 
 
 test_that("test format_se_for_publication formats file correctly (no period given)", {
-  dir.create("temp")
-  format_se_for_publication(df, "network", "temp")
-  files <- list.files("temp")
-
-  expect_setequal(files, c("standard_errors_formatted_for_publication_period_202202.csv"))
+  df_actual <- format_se_for_publication(df)
 
   # Read in the file and compare to expected
-  df_actual <- read.csv(file.path("temp", "standard_errors_formatted_for_publication_period_202202.csv"))
   expect_true(all(df_actual$period == 202202))
 
   df_expected =
@@ -28,19 +23,13 @@ test_that("test format_se_for_publication formats file correctly (no period give
     )
   expect_equal(df_actual, df_expected)
 
-  unlink("temp", recursive = TRUE)
 })
 
 
 test_that("test format_se_for_publication formats file correctly period (period given) ", {
-  dir.create("temp")
-  format_se_for_publication(df, "network", "temp","202201")
-  files <- list.files("temp")
-
-  expect_setequal(files, c("standard_errors_formatted_for_publication_period_202201.csv"))
+  df_actual <- format_se_for_publication(df, "202201")
 
   # Read in the file and compare to expected
-  df_actual <- read.csv(file.path("temp", "standard_errors_formatted_for_publication_period_202201.csv"))
   expect_true(all(df_actual$period == 202201))
 
   df_expected =
@@ -53,5 +42,4 @@ test_that("test format_se_for_publication formats file correctly period (period 
     )
   expect_equal(df_actual, df_expected)
 
-  unlink("temp", recursive = TRUE)
 })

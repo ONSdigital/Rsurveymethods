@@ -118,6 +118,8 @@ format_se_for_publication <- function(df, selected_period=""){
       cov = CV.Total.winsorised_value,
       sample_var_p_millions = Total.winsorised_value,
     )
+  # reset index column to clean numbering
+  rownames(df_filtered) <- NULL
   return(df_filtered)
   # Unsure if this is needed at this point
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96

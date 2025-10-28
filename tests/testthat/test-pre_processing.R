@@ -1,7 +1,7 @@
 test_that("pre_processing correct output", {
   input_data <- data.frame(
     reference = c(101, 102, 103, 104),
-    questioncode = c(11, 11, 11, 11),
+    questioncode = c(101, 101, 101, 101),
     cell_no = c("100", "100", "200", "300"),
     period = c(202201, 202201, 202201, 202201),
     design_weight = c(1.1, 1.0 , 0.8, 0.9),
@@ -25,7 +25,7 @@ test_that("pre_processing correct output", {
   # is something to do with merge in function?
   expected_output <- data.frame(
     reference = c(101, 102, 103, 104),
-    questioncode = c(11, 11, 11, 11),
+    questioncode = c(101, 101, 101, 101),
     cell_no = c("100", "100", "200", "300"),
     period = c(202201, 202201, 202201, 202201),
     design_weight = c(1.1, 1.0 , 0.8, 0.9),
