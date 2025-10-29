@@ -1,13 +1,13 @@
-#' Wrapper csv reader for local or s3 data storage
+#' Wrapper csv reader for network or s3 data storage
 #'
-#' @param storage_system accepts local or s3
+#' @param storage_system accepts network or s3
 #' @param input_data_path full path of data
 #'
 #' @return df dataframe
 #' @export
 read_csv_wrapper <- function(storage_system,input_data_path){
 
-  if (storage_system=="local"){
+  if (storage_system=="network"){
 
     df = read.csv(input_data_path)
 
@@ -31,10 +31,10 @@ read_csv_wrapper <- function(storage_system,input_data_path){
   return (df)
   }
 
-#' Wrapper csv writer for local or s3 data storage
+#' Wrapper csv writer for network or s3 data storage
 #'
 #' @param df dataframe to export
-#' @param storage_system accepts local or s3
+#' @param storage_system accepts network or s3
 #' @param save_path full path of data
 #' @param file_name name of file to export
 #'
@@ -43,7 +43,7 @@ read_csv_wrapper <- function(storage_system,input_data_path){
 write_csv_wrapper <- function(df,storage_system,save_path,file_name){
 
 
-  if (storage_system=="local"){
+  if (storage_system=="network"){
     full_path = paste(save_path,file_name,sep="/")
     write.csv(df, full_path, row.names = FALSE)
 

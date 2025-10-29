@@ -2,12 +2,12 @@
 % Please edit documentation in R/io.R
 \name{read_csv_wrapper}
 \alias{read_csv_wrapper}
-\title{Wrapper csv reader for local or s3 data storage}
+\title{Wrapper csv reader for network or s3 data storage}
 \usage{
 read_csv_wrapper(storage_system, input_data_path)
 }
 \arguments{
-\item{storage_system}{accepts local or s3}
+\item{storage_system}{accepts network or s3}
 
 \item{input_data_path}{full path of data}
 }
@@ -15,5 +15,5 @@ read_csv_wrapper(storage_system, input_data_path)
 df dataframe
 }
 \description{
-Wrapper csv reader for local or s3 data storage
+Wrapper csv reader for network or s3 data storage
 }

@@ -4,24 +4,15 @@
 \alias{format_se_for_publication}
 \title{format standard errors file for publication}
 \usage{
-format_se_for_publication(
-  df,
-  storage_system,
-  output_path,
-  selected_period = ""
-)
+format_se_for_publication(df, selected_period = "")
 }
 \arguments{
 \item{df}{dataframe to format for standard errors publication}
 
-\item{storage_system}{should be local or s3}
-
-\item{output_path}{directory to output formatted df}
-
 \item{selected_period}{optional, if provided only that period will be processed YYYYMM format}
 }
 \value{
-None
+formatted dataframe
 }
 \description{
 format standard errors file for publication

@@ -2,14 +2,14 @@
 % Please edit documentation in R/io.R
 \name{write_csv_wrapper}
 \alias{write_csv_wrapper}
-\title{Wrapper csv writer for local or s3 data storage}
+\title{Wrapper csv writer for network or s3 data storage}
 \usage{
 write_csv_wrapper(df, storage_system, save_path, file_name)
 }
 \arguments{
 \item{df}{dataframe to export}
 
-\item{storage_system}{accepts local or s3}
+\item{storage_system}{accepts network or s3}
 
 \item{save_path}{full path of data}
 
@@ -19,5 +19,5 @@ write_csv_wrapper(df, storage_system, save_path, file_name)
 df dataframe
 }
 \description{
-Wrapper csv writer for local or s3 data storage
+Wrapper csv writer for network or s3 data storage
 }

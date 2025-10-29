@@ -25,6 +25,8 @@ pre_process_data <- function(input_data, population_counts) {
   input_data["frotover_converted_for_regen"] <- input_data["frotover"]
   input_data[, "frotover_converted_for_regen"][input_data[, "frotover_converted_for_regen"] == 0] <- 1e-6
 
+  question_list <- c(11,12,146)
+  input_data <- input_data[!input_data$questioncode %in% question_list, ]
 
   input_data_with_counts <- merge(
     input_data,

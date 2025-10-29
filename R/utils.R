@@ -81,7 +81,7 @@ create_rsurveymethods_file_name <- function(input_data_path){
 #' @export
 check_storage_system_arg <- function(storage_system){
 
-  accepted_values_for_system <- c("local","s3")
+  accepted_values_for_system <- c("network","s3")
 
   if (!storage_system %in% accepted_values_for_system){
     stop(storage_system,
@@ -96,13 +96,11 @@ check_storage_system_arg <- function(storage_system){
 #' format standard errors file for publication
 #'
 #' @param df dataframe to format for standard errors publication
-#' @param storage_system should be local or s3
-#' @param output_path directory to output formatted df
 #' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
-#' @return None
+#' @return formatted dataframe
 #' @export
-format_se_for_publication <- function(df, storage_system, output_path,selected_period=""){
+format_se_for_publication <- function(df, selected_period=""){
   # Filtering to only include most recent period
   if (selected_period == "") {
     selected_period <- max(df$period)
@@ -118,9 +116,20 @@ format_se_for_publication <- function(df, storage_system, output_path,selected_p
       cov = CV.Total.winsorised_value,
       sample_var_p_millions = Total.winsorised_value,
     )
+  # reset index column to clean numbering
+  rownames(df_filtered) <- NULL
+  return(df_filtered)
   # Unsure if this is needed at this point
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
-  filename <- paste0("standard_errors_formatted_for_publication_period_", selected_period, ".csv")
-  write_csv_wrapper(df_filtered, storage_system, output_path, filename)
 }
 
+#' Format file name by appending run_id
+#' 
+#' @param file_name original file name
+#' @param run_id unique identifier for the run
+#' @return formatted file name
+#' @export
+format_file_name <- function(file_name, run_id) {
+  file_name <- paste0(file_name, "_", run_id, ".csv")
+  return(file_name)
+}

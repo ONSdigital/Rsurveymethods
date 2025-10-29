@@ -2,27 +2,16 @@
 % Please edit documentation in R/main.R
 \name{main}
 \alias{main}
-\title{Main Function to run the project}
+\title{Main function to run pipeline process}
 \usage{
-main(
-  storage_system,
-  input_data_path,
-  population_counts_path,
-  output_path,
-  selected_period = ""
-)
+main(config_path)
 }
 \arguments{
-\item{storage_system}{accepts local or s3}
-
-\item{input_data_path}{file path of main dataframe}
-
-\item{population_counts_path}{file path of population counts}
-
-\item{output_path}{file path to save results}
-
-\item{selected_period}{optional, if provided only that period will be processed YYYYMM format}
+\item{config_path}{path to configuration json file}
+}
+\value{
+None
 }
 \description{
-Main Function to run the project
+Main function to run pipeline process
 }
