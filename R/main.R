@@ -1,3 +1,9 @@
+#' Main function to run pipeline process
+#' 
+#' @param config_path path to configuration json file
+#' 
+#' @return None
+#' @export
 main <- function(config_path) {
   config <- jsonlite::fromJSON(config_path)
 
@@ -16,17 +22,14 @@ main <- function(config_path) {
   )
 }
 
-format_file_name <- function(file_name, run_id) {
-  file_name <- paste0(file_name, "_", run_id, ".csv")
-  return(file_name)
-}
-
-#' Main Function to run the project
+#' Function to run the regenesess main process
 #'
 #' @param storage_system accepts local or s3
 #' @param input_data_path file path of main dataframe
 #' @param population_counts_path file path of population counts
 #' @param output_path file path to save results
+#' @param run_id unique identifier for the run
+#' @param debug_mode boolean to indicate if debug mode is on, if true will output additional file
 #' @param selected_period optional, if provided only that period will be processed YYYYMM format
 #'
 #' @export
