@@ -1,3 +1,5 @@
+library(dplyr)
+
 #' Run an hdfs command as hdfs dfs arg1 arg2
 #'
 #' @param ... arguments to run
