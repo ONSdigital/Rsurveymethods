@@ -1,7 +1,7 @@
 #' Main function to run pipeline process
 #' 
 #' @param config_path path to configuration json file
-#' 
+#' @param platform storage platform, either "s3" or "network"
 #' @return None
 #' @export
 main <- function(config_path, platform = "s3") {
