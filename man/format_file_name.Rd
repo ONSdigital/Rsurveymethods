@@ -4,7 +4,7 @@
 \alias{format_file_name}
 \title{Format file name by appending run_id}
 \usage{
-format_file_name(file_name, run_id)
+format_file_name(config, file_name, run_id, platform = "s3")
 }
 \arguments{
 \item{file_name}{original file name}

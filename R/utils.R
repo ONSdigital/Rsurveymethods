@@ -131,7 +131,16 @@ format_se_for_publication <- function(df, selected_period=""){
 #' @param run_id unique identifier for the run
 #' @return formatted file name
 #' @export
-format_file_name <- function(file_name, run_id) {
-  file_name <- paste0(file_name, "_", run_id, ".csv")
-  return(file_name)
+format_file_name <- function(config, file_name, run_id, platform="s3") {
+  config$platform <- platform
+  if (config$platform == "s3"){
+    prefix <- paste0("s3a://", config$bucket, "/")
+  } else{
+    prefix <- ""
+  }
+  formatted_file_name <- paste0(prefix, config$output_path, file_name, "_", run_id, ".csv")
+  return(formatted_file_name)
 }
+
+
+# Issues: Platform is in cons dev config?

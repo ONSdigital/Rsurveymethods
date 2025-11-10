@@ -4,7 +4,7 @@
 \alias{main}
 \title{Main function to run pipeline process}
 \usage{
-main(config_path)
+main(config_path, platform = "s3")
 }
 \arguments{
 \item{config_path}{path to configuration json file}
