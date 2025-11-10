@@ -4,7 +4,7 @@
 \alias{format_file_name}
 \title{Format file name by appending run_id}
 \usage{
-format_file_name(config, file_name, run_id, platform = "s3")
+format_file_name(config, file_name, run_id, platform)
 }
 \arguments{
 \item{config}{configuration list}

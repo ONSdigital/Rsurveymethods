@@ -62,7 +62,7 @@ test_that("test format filename returns correct output (s3)", {
     output_path = "output/",
     bucket = "used"
     )
-  formatted_path <- format_file_name(config, "test", run_id)
+  formatted_path <- format_file_name(config, "test", run_id, platform = "s3")
 
   expect_equal(formatted_path, "s3a://used/output/test_1.csv")
 })
@@ -85,4 +85,14 @@ test_that("test format path returns correct output (s3)", {
   formatted_path <- format_path(config, config$output_path, platform="s3")
 
   expect_equal(formatted_path, "s3a://used/output/")
+})
+
+test_that("test error when platform is not s3 or network", {
+  config <- list(
+    output_path = "output/",
+    bucket = "used"
+  )
+  expect_error(
+    format_path(config, config$output_path, platform = "local")
+  )
 })

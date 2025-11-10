@@ -133,7 +133,7 @@ format_se_for_publication <- function(df, selected_period=""){
 #' @param platform storage platform, either "s3" or "network"
 #' @return formatted file name
 #' @export
-format_file_name <- function(config, file_name, run_id, platform="s3") {
+format_file_name <- function(config, file_name, run_id, platform) {
   formatted_path <- format_path(config, config$output_path, platform)
   formatted_file_name <- paste0(formatted_path, file_name, "_", run_id, ".csv")
   return(formatted_file_name)
@@ -142,12 +142,12 @@ format_file_name <- function(config, file_name, run_id, platform="s3") {
 #' Format file path by adding s3 prefix if needed
 #' 
 #' @param config configuration list
-#' @param file_name original file name
-#' @param run_id unique identifier for the run
+#' @param path original file path
 #' @param platform storage platform, either "s3" or "network"
 #' @return formatted file path
 #' @export
-format_path <- function(config, path, platform = "s3") {
+format_path <- function(config, path, platform = c("s3", "network")) {
+  platform <- match.arg(platform)
   if (platform == "s3") {
     prefix <- paste0("s3a://", config$bucket, "/")
   } else {
