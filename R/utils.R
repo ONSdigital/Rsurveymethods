@@ -134,8 +134,7 @@ format_se_for_publication <- function(df, selected_period=""){
 #' @return formatted file name
 #' @export
 format_file_name <- function(config, file_name, run_id, platform="s3") {
-  config$platform <- platform
-  if (config$platform == "s3"){
+  if (platform == "s3"){
     prefix <- paste0("s3a://", config$bucket, "/")
   } else{
     prefix <- ""

@@ -16,7 +16,7 @@ main <- function(config_path, platform = "s3") {
     input_data_path = formatted_input_data_path,
     population_counts_path = formatted_population_counts_path,
     output_path = config$output_path,
-    selected_period = config$publication_period,
+    selected_period = config$current_period,
     run_id = run_id,
     debug_mode = config$debug_mode
   )
