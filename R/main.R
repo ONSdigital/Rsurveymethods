@@ -12,7 +12,7 @@ main <- function(config_path, platform = "s3") {
   formatted_population_counts_path <- format_file_name(config, "population_counts", run_id, platform)
 
   run_regenesess(
-    storage_system = config$storage_system,
+    storage_system = platform,
     input_data_path = formatted_input_data_path,
     population_counts_path = formatted_population_counts_path,
     output_path = config$output_path,
