@@ -8,14 +8,15 @@ main <- function(config_path, platform = "s3") {
   config <- jsonlite::fromJSON(config_path)
 
   run_id <- readLines(".RUN_ID", warn = FALSE)
-  formatted_input_data_path <- format_file_name(config, "cons_main", run_id, platform)
+  formatted_input_data_path <- format_file_name(config, "cons_results", run_id, platform)
   formatted_population_counts_path <- format_file_name(config, "population_counts", run_id, platform)
-
+  formatted_output_path <- format_file_name(config, "output_path", run_id, platform)
+  
   run_regenesess(
     storage_system = platform,
     input_data_path = formatted_input_data_path,
     population_counts_path = formatted_population_counts_path,
-    output_path = config$output_path,
+    output_path = formatted_output_path,
     selected_period = config$current_period,
     run_id = run_id,
     debug_mode = config$debug_mode

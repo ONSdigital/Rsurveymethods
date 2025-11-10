@@ -134,14 +134,26 @@ format_se_for_publication <- function(df, selected_period=""){
 #' @return formatted file name
 #' @export
 format_file_name <- function(config, file_name, run_id, platform="s3") {
-  if (platform == "s3"){
-    prefix <- paste0("s3a://", config$bucket, "/")
-  } else{
-    prefix <- ""
-  }
-  formatted_file_name <- paste0(prefix, config$output_path, file_name, "_", run_id, ".csv")
+  formatted_path <- format_path(config, config$output_path, platform)
+  formatted_file_name <- paste0(formatted_path, file_name, "_", run_id, ".csv")
   return(formatted_file_name)
 }
 
+#' Format file path by adding s3 prefix if needed
+#' 
+#' @param config configuration list
+#' @param file_name original file name
+#' @param run_id unique identifier for the run
+#' @param platform storage platform, either "s3" or "network"
+#' @return formatted file path
+#' @export
+format_path <- function(config, path, platform = "s3") {
+  if (platform == "s3") {
+    prefix <- paste0("s3a://", config$bucket, "/")
+  } else {
+    prefix <- ""
+  }
+  formatted_path <- paste0(prefix, path)
+  return(formatted_path)
+}
 
-# Issues: Platform is in cons dev config?
