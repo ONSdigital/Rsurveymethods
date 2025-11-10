@@ -7,9 +7,13 @@
 format_file_name(config, file_name, run_id, platform = "s3")
 }
 \arguments{
+\item{config}{configuration list}
+
 \item{file_name}{original file name}
 
 \item{run_id}{unique identifier for the run}
+
+\item{platform}{storage platform, either "s3" or "network"}
 }
 \value{
 formatted file name
