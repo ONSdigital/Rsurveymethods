@@ -46,26 +46,27 @@ test_that("test format_se_for_publication formats file correctly period (period 
 
 
 test_that("test format filename returns correct output (network)", {
-  run_id <- 1
   config <- list(
     output_path = "output/",
-    bucket = "not_used"
+    bucket = "not_used",
+    run_id = 1
   )
-  formatted_path <- format_file_name(config, "test", run_id, platform="network")
+  formatted_path <- format_file_name(config, "test", platform="network")
 
   expect_equal(formatted_path, "output/test_1.csv")
 })
 
 test_that("test format filename returns correct output (s3)", {
-  run_id <- 1  
   config <- list(
     output_path = "output/",
-    bucket = "used"
-    )
-  formatted_path <- format_file_name(config, "test", run_id, platform = "s3")
+    bucket = "used",
+    run_id = 1
+  )
+  formatted_path <- format_file_name(config, "test", platform = "s3")
 
   expect_equal(formatted_path, "s3a://used/output/test_1.csv")
 })
+
 
 test_that("test format path returns correct output (network)", {
   config <- list(

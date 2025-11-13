@@ -129,13 +129,12 @@ format_se_for_publication <- function(df, selected_period=""){
 #' 
 #' @param config configuration list
 #' @param file_name original file name
-#' @param run_id unique identifier for the run
 #' @param platform storage platform, either "s3" or "network"
 #' @return formatted file name
 #' @export
-format_file_name <- function(config, file_name, run_id, platform) {
-  formatted_path <- format_path(config, config$output_path, platform)
-  formatted_file_name <- paste0(formatted_path, file_name, "_", run_id, ".csv")
+format_file_name <- function(config, file_name, platform) {
+  formatted_path <- format_path(config, config$main_construction_output_path, platform)
+  formatted_file_name <- paste0(formatted_path, file_name, "_", config$run_id, ".csv")
   return(formatted_file_name)
 }
 
