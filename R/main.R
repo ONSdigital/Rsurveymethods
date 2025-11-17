@@ -14,9 +14,23 @@ main <- function(config_path, debug_mode = FALSE, platform = "s3") {
     config$run_id <- readLines(".RUN_ID", warn = FALSE)
   }
 
-  formatted_input_data_path <- format_file_name(config, config$cons_output_prefix, platform)
-  formatted_population_counts_path <- format_file_name(config, config$population_counts_prefix, platform)
-  formatted_output_path <- format_path(config, config$destination_output_path, platform)
+  formatted_input_data_path <- format_file_name(
+    config = config,
+    path = config$main_cons_output_folder_path,
+    file_name = config$cons_output_prefix,
+    platform = platform
+  )
+  formatted_population_counts_path <- format_file_name(
+    config = config,
+    path = config$population_counts_prefix,
+    file_name = config$population_counts_prefix,
+    platform = platform
+  )
+  formatted_output_path <- format_path(
+    config = config,
+    path = config$output_path,
+    platform = platform
+  )
 
   run_regenesess(
     storage_system = platform,

@@ -4,10 +4,12 @@
 \alias{main}
 \title{Main function to run pipeline process}
 \usage{
-main(config_path, platform = "s3")
+main(config_path, debug_mode = FALSE, platform = "s3")
 }
 \arguments{
 \item{config_path}{path to configuration json file}
+
+\item{debug_mode}{boolean to indicate if debug mode is on, if true will output additional file}
 
 \item{platform}{storage platform, either "s3" or "network"}
 }

@@ -125,15 +125,16 @@ format_se_for_publication <- function(df, selected_period=""){
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
 }
 
-#' Format file name by appending run_id
-#' 
+#' Format file name by appending run_id and adding s3 prefix if needed
+#'
 #' @param config configuration list
+#' @param path original file path
 #' @param file_name original file name
 #' @param platform storage platform, either "s3" or "network"
 #' @return formatted file name
 #' @export
-format_file_name <- function(config, file_name, platform) {
-  formatted_path <- format_path(config, config$main_construction_output_path, platform)
+format_file_name <- function(config, path, file_name, platform) {
+  formatted_path <- format_path(config, path, platform)
   formatted_file_name <- paste0(formatted_path, file_name, "_", config$run_id, ".csv")
   return(formatted_file_name)
 }

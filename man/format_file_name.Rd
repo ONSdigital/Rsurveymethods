@@ -2,16 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{format_file_name}
 \alias{format_file_name}
-\title{Format file name by appending run_id}
+\title{Format file name by appending run_id and adding s3 prefix if needed}
 \usage{
-format_file_name(config, file_name, run_id, platform)
+format_file_name(config, path, file_name, platform)
 }
 \arguments{
 \item{config}{configuration list}
 
-\item{file_name}{original file name}
+\item{path}{original file path}
 
-\item{run_id}{unique identifier for the run}
+\item{file_name}{original file name}
 
 \item{platform}{storage platform, either "s3" or "network"}
 }
@@ -19,5 +19,5 @@ format_file_name(config, file_name, run_id, platform)
 formatted file name
 }
 \description{
-Format file name by appending run_id
+Format file name by appending run_id and adding s3 prefix if needed
 }
