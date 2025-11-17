@@ -22,7 +22,7 @@ main <- function(config_path, debug_mode = FALSE, platform = "s3") {
   )
   formatted_population_counts_path <- format_file_name(
     config = config,
-    path = config$population_counts_prefix,
+    path = config$main_cons_output_folder_path,
     file_name = config$population_counts_prefix,
     platform = platform
   )
