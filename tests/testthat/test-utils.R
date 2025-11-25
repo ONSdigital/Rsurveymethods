@@ -43,3 +43,67 @@ test_that("test format_se_for_publication formats file correctly period (period 
   expect_equal(df_actual, df_expected)
 
 })
+
+
+test_that("test format filename returns correct output (network)", {
+  config <- list(
+    output_path = "output/",
+    bucket = "not_used",
+    run_id = 1
+  )
+  formatted_path <- format_file_name(
+    config = config,
+    path = config$output_path,
+    file_name = "test",
+    platform = "network"
+  )
+
+  expect_equal(formatted_path, "output/test_1.csv")
+})
+
+test_that("test format filename returns correct output (s3)", {
+  config <- list(
+    output_path = "output/",
+    bucket = "used",
+    run_id = 1
+  )
+  formatted_path <- format_file_name(
+    config = config,
+    path = config$output_path,
+    file_name = "test",
+    platform = "s3"
+  )
+
+  expect_equal(formatted_path, "s3a://used/output/test_1.csv")
+})
+
+
+test_that("test format path returns correct output (network)", {
+  config <- list(
+    output_path = "output/",
+    bucket = "not_used"
+  )
+  formatted_path <- format_path(config, config$output_path, platform="network")
+
+  expect_equal(formatted_path, "output/")
+})
+
+test_that("test format path returns correct output (s3)", {
+  config <- list(
+    output_path = "output/",
+    bucket = "used"
+  )
+  formatted_path <- format_path(config, config$output_path, platform="s3")
+
+  expect_equal(formatted_path, "s3a://used/output/")
+})
+
+test_that("test error when platform is not s3 or network", {
+  config <- list(
+    output_path = "output/",
+    bucket = "used"
+  )
+  expect_error(
+    format_path(config, config$output_path, platform = "local")
+  )
+})

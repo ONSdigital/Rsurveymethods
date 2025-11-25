@@ -1,24 +1,45 @@
 #' Main function to run pipeline process
 #' 
 #' @param config_path path to configuration json file
-#' 
+#' @param debug_mode boolean to indicate if debug mode is on, if true will output additional file
+#' @param platform storage platform, either "s3" or "network"
 #' @return None
 #' @export
-main <- function(config_path) {
+main <- function(config_path, debug_mode = FALSE, platform = "s3") {
   config <- jsonlite::fromJSON(config_path)
 
-  run_id <- readLines(config$run_id_path, warn = FALSE)
-  formatted_input_data_path <- format_file_name(config$input_data_path, run_id)
-  formatted_population_counts_path <- format_file_name(config$population_counts_path, run_id)
+  if (config$run_id == "") {
+    # This will load the .RUN_ID file created at the start of the pipeline
+    # if there is no run_id in the config, otherwise we use this value.
+    config$run_id <- readLines(".RUN_ID", warn = FALSE)
+  }
+
+  formatted_input_data_path <- format_file_name(
+    config = config,
+    path = config$main_cons_output_folder_path,
+    file_name = config$cons_output_prefix,
+    platform = platform
+  )
+  formatted_population_counts_path <- format_file_name(
+    config = config,
+    path = config$main_cons_output_folder_path,
+    file_name = config$population_counts_prefix,
+    platform = platform
+  )
+  formatted_output_path <- format_path(
+    config = config,
+    path = config$output_path,
+    platform = platform
+  )
 
   run_regenesess(
-    storage_system = config$storage_system,
+    storage_system = platform,
     input_data_path = formatted_input_data_path,
     population_counts_path = formatted_population_counts_path,
-    output_path = config$output_path,
-    selected_period = config$selected_period,
-    run_id = run_id,
-    debug_mode = config$debug_mode
+    output_path = formatted_output_path,
+    selected_period = config$standard_errors_period,
+    run_id = config$run_id,
+    debug_mode = debug_mode
   )
 }
 

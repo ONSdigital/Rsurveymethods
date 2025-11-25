@@ -1,3 +1,5 @@
+library(dplyr)
+
 #' Run an hdfs command as hdfs dfs arg1 arg2
 #'
 #' @param ... arguments to run
@@ -123,13 +125,36 @@ format_se_for_publication <- function(df, selected_period=""){
   # df_filtered["margin_of_error"] = df_filtered$std_error*1.96
 }
 
-#' Format file name by appending run_id
-#' 
+#' Format file name by appending run_id and adding s3 prefix if needed
+#'
+#' @param config configuration list
+#' @param path original file path
 #' @param file_name original file name
-#' @param run_id unique identifier for the run
+#' @param platform storage platform, either "s3" or "network"
 #' @return formatted file name
 #' @export
-format_file_name <- function(file_name, run_id) {
-  file_name <- paste0(file_name, "_", run_id, ".csv")
-  return(file_name)
+format_file_name <- function(config, path, file_name, platform = c("s3", "network")) {
+  platform <- match.arg(platform)
+  formatted_path <- format_path(config, path, platform)
+  formatted_file_name <- paste0(formatted_path, file_name, "_", config$run_id, ".csv")
+  return(formatted_file_name)
 }
+
+#' Format file path by adding s3 prefix if needed
+#' 
+#' @param config configuration list
+#' @param path original file path
+#' @param platform storage platform, either "s3" or "network"
+#' @return formatted file path
+#' @export
+format_path <- function(config, path, platform = c("s3", "network")) {
+  platform <- match.arg(platform)
+  if (platform == "s3") {
+    prefix <- paste0("s3a://", config$bucket, "/")
+  } else {
+    prefix <- ""
+  }
+  formatted_path <- paste0(prefix, path)
+  return(formatted_path)
+}
+
