@@ -134,6 +134,7 @@ format_se_for_publication <- function(df, selected_period=""){
 #' @return formatted file name
 #' @export
 format_file_name <- function(config, path, file_name, platform = c("s3", "network")) {
+  platform <- match.arg(platform)
   formatted_path <- format_path(config, path, platform)
   formatted_file_name <- paste0(formatted_path, file_name, "_", config$run_id, ".csv")
   return(formatted_file_name)
