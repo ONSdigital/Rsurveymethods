@@ -109,7 +109,7 @@ format_se_for_publication <- function(df, selected_period=""){
   }
   df_filtered <- df[df$period == selected_period, ]
   # Ordering questions in specific order requested by business area
-  question_order <- list(290, 201, 211, 221, 231, 241, 242, 202, 212, 222, 232, 243)
+  question_order <- list(290, 201, 211, 221, 231, 242, 241, 202, 212, 222, 232, 243)
   df_filtered <- df_filtered[order(match(df_filtered$questioncode, question_order)), ]
 
   df_filtered <- df_filtered %>%
